@@ -1,0 +1,95 @@
+<head>
+  <title>image_share</title>
+</head>
+
+<body>
+	{{> image_add_form}}
+	{{> image_popup}}
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			{{> loginButtons}}
+		</div>
+	</nav>
+	<div class="container">
+		 <h1>Welcome to image share {{username}}!</h1>
+		<br />
+		 {{> images}}
+	</div>
+</body>
+
+<template name="image_add_form">
+
+	<div id="image_add_form" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Add an image</h4>
+	      </div>
+	      <div class="modal-body">	
+		        <form class="js-add-image">
+        	        <input type="text" name="img_src"/>
+	                <br/>
+                	<input type="text" name="img_alt"/>
+        	        <button class="btn btn-success">save</button>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+</template>
+
+<template name="images">
+  <!-- <button>Click Me</button>
+  //<p>You've pressed the button {{counter}} times.</p> -->
+	{{#if currentUser}}
+	<button type="button" class="btn btn-success btn-lg js-show-image-form">Add image</button>	
+	{{/if}}
+	{{#if filtering_images}}
+	<h2>Showing images by user {{getFilterUser}}
+	<button type="button" class="btn btn-warning btn-lg js-unset-image-filter">Show all images</button></h2>
+	{{/if}}
+	<div class="row">
+	{{#each images}}
+	<div class="col-xs-12 col-md-3" id="{{_id}}">
+		<div class="thumbnail">
+			<img class="js-image thumbnail-img" src="{{img_src}}" alt="{{img_alt}}" />
+			<div class="caption">
+				<h3>Rating : {{rating}}</h3>
+				<p>{{img_alt}}</p>
+				<!-- <p>User : {{createdBy}}</p>-->
+				<p>User : <a href="#" class="js-set-image-filter">
+						{{getUser createdBy}}</a></p>
+				<p>{{> starsRating mutable=true class="js-rate-image" id=_id}}</p>
+				{{#if imageOwner}}
+				<button class="js-del-image btn btn-warning">Delete</button>
+				{{/if}}
+			</div>
+		</div>
+	</div>	<!-- / col -->
+	{{/each}}
+	</div> <!-- / row -->
+</template>
+<template name="image_popup">
+<div id="image_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+	{{#with image}}
+	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{img_alt}}</h4>
+        </div>
+	<div class="modal-body">
+		<img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive">
+        </div>
+	 {{/with}}
+    </div>
+  </div>
+</div>
+</template>
