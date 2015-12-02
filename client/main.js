@@ -55,7 +55,13 @@ Template.images.events({
   $("#image_add_form").modal('show');
 }, 
 'click .js-set-image-filter':function(event){
-    Session.set("userFilter", this.createdBy);
+	console.log(this.createdBy);
+	if (this.createdBy != undefined){
+		Session.set("userFilter", this.createdBy);
+	} else
+	{
+		Session.set("userFilter", "anonymous");
+	}
 }, 
 'click .js-unset-image-filter':function(event){
     Session.set("userFilter", undefined);

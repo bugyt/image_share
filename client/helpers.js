@@ -5,8 +5,19 @@ Session.set("imageLimit", 8);
 //      Template.images.helpers({images:img_data});
 Template.images.helpers({
   images: function() {
-    if (Session.get("userFilter")) {
-      return Images.find({
+	var userF = Session.get("userFilter");
+    if (userF) {
+	if (userF == "anonymous"){
+		return Images.find({
+	        createdBy: undefined
+	      }, {
+	        sort: {
+	          createdOn: -1,
+	          rating: -1
+	        }
+	      });
+	} else {
+	return Images.find({
         createdBy: Session.get("userFilter")
       }, {
         sort: {
@@ -14,6 +25,7 @@ Template.images.helpers({
           rating: -1
         }
       });
+}
     } else {
       return Images.find({}, {
         sort: {
@@ -26,10 +38,14 @@ Template.images.helpers({
   },
   getFilterUser: function() {
     if (Session.get("userFilter")) {
+	if (Session.get("userFilter")!="anonymous") {
       var user = Meteor.users.findOne({
         _id: Session.get("userFilter")
       });
       return user.username;
+	} else {
+		return "anonymous";
+	}
     }
   },
   getUser: function(user_id) {
