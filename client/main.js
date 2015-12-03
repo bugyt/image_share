@@ -1,3 +1,48 @@
+/// routing
+
+// Default layout is ApplicationLayout (define in html)
+Router.configure({
+	layoutTemplate: 'ApplicationLayout'
+});
+
+Router.route('/', function () {
+	this.render('welcome',{
+		to:"main"
+	});
+});
+Router.route('/images', function () {
+        this.render('modal',{
+                to:"modal"
+        });
+	this.render('navbar',{
+               	to:"navbar"
+        });
+        this.render('images',{
+                to:"main"
+        });
+});
+
+Router.route('/image/:_id', {action : function () {
+        this.render('navbar',{
+                to:"navbar"
+        });
+        this.render('image',{
+                to:"main",
+		data:function(){
+			var img = JSON.stringify(Images.findOne({_id:this.params._id}));
+			var str = img.replace("img/", "/img/");
+			return JSON.parse(str);
+		},
+        });
+},
+onAfterAction: function () {
+	console.log("qsdqsddddddd");
+	$('#image_popup').modal('hide');
+//	this.next();
+}
+
+});
+
 /// infiniscroll
 
 Session.set("imageLimit", 8);
@@ -16,7 +61,7 @@ if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
   lastScrollTop = scrollTop;
 }
     
-})
+});
 
 
 /// accounts config
@@ -90,3 +135,10 @@ Template.image_add_form.events({
 }
 });
 
+
+//Template.image_popup.events({
+//'hidden.bs.modal #image_popup':function(event){
+//        console.log("ok");
+//	this.next();
+//},
+//});

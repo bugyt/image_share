@@ -1,21 +1,43 @@
 <head>
   <title>image_share</title>
 </head>
-
 <body>
+</body>
+
+<template name="ApplicationLayout">
+	{{> yield "modal"}}
+	{{> yield "navbar"}}
+	{{> yield "main"}}
+</template>
+
+<template name="modal">
 	{{> image_add_form}}
 	{{> image_popup}}
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			{{> loginButtons}}
-		</div>
-	</nav>
+</template>
+
+<template name="welcome">
 	<div class="container">
-		 <h1>Welcome to image share {{username}}!</h1>
-		<br />
-		 {{> images}}
+		<div class="jumbotron text-center">
+			<h1>Welcome to image share {{username}}!</h1>	
+			<a href="/images" class="btn btn-info btn-lg">ENTER</a>
+		</div>
 	</div>
-</body>
+</template>
+
+<template name="image">
+	<div class="container">
+		<h2>{{img_alt}}</h2>
+		<a href="/images"><img src="{{img_src}}" class="single-img"/></a>
+	</div>
+</template>
+
+<template name="navbar">
+        <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                        {{> loginButtons}}
+                </div>
+        </nav>
+</template>
 
 <template name="image_add_form">
 
@@ -60,6 +82,7 @@
 </template>
 
 <template name="images">
+ <div class="container">
   <!-- <button>Click Me</button>
   //<p>You've pressed the button {{counter}} times.</p> -->
 	{{#if currentUser}}
@@ -89,6 +112,7 @@
 	</div>	<!-- / col -->
 	{{/each}}
 	</div> <!-- / row -->
+</div> <!-- / container -->
 </template>
 <template name="image_popup">
 <div id="image_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -100,7 +124,7 @@
                 <h4 class="modal-title">{{img_alt}}</h4>
         </div>
 	<div class="modal-body">
-		<img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive">
+		<a href="/image/{{_id}}"><img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive"></a>
         </div>
 	 {{/with}}
     </div>
