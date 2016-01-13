@@ -36,7 +36,6 @@ Router.route('/image/:_id', {action : function () {
         });
 },
 onAfterAction: function () {
-	console.log("qsdqsddddddd");
 	$('#image_popup').modal('hide');
 //	this.next();
 }
@@ -74,7 +73,7 @@ passwordSignupFields: "USERNAME_AND_EMAIL"
 
 Template.images.events({
 'click .js-image':function(event){
-    	$(event.target).css("width", "50px");
+//    	$(event.target).css("width", "50px");
 	Session.set("selectedImageId",this._id);
 	$('#image_popup').modal("show");
 }, 

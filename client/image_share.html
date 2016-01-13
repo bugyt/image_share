@@ -68,9 +68,9 @@
                		<button class="btn btn-success" type="submit">Save</button> <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
                 </div>
 		</form>
-		    <div class="alert alert-warning alert-dismissible" role="alert">
+		 <!--   <div class="alert alert-warning alert-dismissible" role="alert">
                         <button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span></button> <strong>Warning:</strong> Please <strong><a href="tel:+852%208765%204321">call</a></strong> us to reserve for more than six guests.
-                    </div>
+                    </div> -->
 	      </div>
 <!--	      <div class="modal-footer">
 	        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -124,7 +124,8 @@
                 <h4 class="modal-title">{{img_alt}}</h4>
         </div>
 	<div class="modal-body">
-		<a href="/image/{{_id}}"><img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive"></a>
+<!--		<a href="/image/{{_id}}"><img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive"></a>-->
+		<img  src="{{img_src}}" alt="{{img_alt}}" class="img-responsive">
         </div>
 	 {{/with}}
     </div>
